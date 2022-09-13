@@ -9,6 +9,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from . import model
 from .database import Base, engine,Sessionlocal
+from .config import settings
 
 oAuth = OAuth2PasswordBearer(tokenUrl='log_encrypt',scheme_name="JWT")
 # oAuth = OAuth2PasswordBearer(tokenUrl="log_encrypt")
@@ -23,22 +24,18 @@ class Token_data(BaseModel):
     username:Optional[str] = None
 
 
-secret_key="09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-algorithm="HS256"
-expire_time=30
-token_type="Bearer"
  
 def create_token(data:dict):
     encode=data.copy()
-    exp=datetime.utcnow()+timedelta(minutes=expire_time)
+    exp=datetime.utcnow()+timedelta(minutes=settings.expire_time)
     encode.update({"exp":exp})
-    value=jwt.encode(encode,secret_key,algorithm=algorithm)
+    value=jwt.encode(encode,settings.secret_key,algorithm=settings.algorithm)
     return value
 
 def verify_token(token:str,credential_exception):
     try:
         print(token)
-        payload=jwt.decode(token,secret_key,algorithm)
+        payload=jwt.decode(token,settings.secret_key,settings.algorithm)
         username=payload.get('user_name')
         if username is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

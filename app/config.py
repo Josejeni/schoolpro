@@ -7,6 +7,11 @@ class Settings(BaseSettings):
     database_name:str
     database_username:str
     database_password:str
+    secret_key:str
+    algorithm:str
+    expire_time:int
+    token_type:str
+
     class Config:
         env_file= ".env"
 
