@@ -1,3 +1,4 @@
+from sre_constants import SUCCESS
 from typing import Optional
 from urllib import response
 from colorama import Cursor
@@ -41,6 +42,12 @@ def get_db():
         yield db
     except:
         db.close()
+
+
+@app.get("/")
+def root():
+    return{"msg":
+    "success"}
 
 class encrypted(BaseModel):
     user_name:str
