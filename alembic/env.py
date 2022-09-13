@@ -10,7 +10,7 @@ from alembic import context
 # access to the values within the .ini file in use.
 print(settings.database_username)
 config = context.config
-config.get_main_option('sqlalchemy.url ',f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}')
+config.get_main_option('sqlalchemy.url','postgresql://postgres:postgres@localhost:5432/fastapi')
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
