@@ -19,7 +19,7 @@ from app import schemas
 from .model import register
 
 
-model.Base.metadata.create_all(bind=engine)
+# model.Base.metadata.create_all(bind=engine)
 
 
 app=FastAPI()
