@@ -4,6 +4,7 @@ on: [push,pull_request]
 jobs:
   job1:
     env:
+      run: service postgresql start
       DATABASE_HOSTNAME: localhost
       DATABASE_PASSWORD: postgres
       DATABASE_PORT: 5432
