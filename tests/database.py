@@ -11,7 +11,7 @@ from app import utils
 
 
 
-SQLALCHEMY_DATABASE_URL='postgresql://postgres:postgres@localhost:5432/fastapi_test'
+SQLALCHEMY_DATABASE_URL='postgresql+psycopg2://postgres:postgres@localhost:5432/fastapi_test'
 engine=create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionlocal=sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
