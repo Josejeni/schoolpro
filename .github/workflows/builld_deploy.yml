@@ -4,7 +4,7 @@ on: [push,pull_request]
 jobs:
   job1:
     env:
-      run: service postgresql start
+    
       DATABASE_HOSTNAME: localhost
       DATABASE_PASSWORD: postgres
       DATABASE_PORT: 5432
@@ -17,7 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+        
       - name: pulling git repo
+        run: service postgresql start
         uses: actions/checkout@v3
       - name: Install python 
         uses: actions/setup-python@v3
