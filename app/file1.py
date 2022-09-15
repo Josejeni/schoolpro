@@ -16,6 +16,7 @@ from .import utils,jwt
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from socket import socket
 from app import schemas
+from .model import register
 
 
 model.Base.metadata.create_all(bind=engine)
@@ -25,7 +26,7 @@ app=FastAPI()
 
 origins = [
   
-    " http://localhost:4200",
+    "http://localhost:4200",
     "https://edustar-profile.herokuapp.com"
 ]
 app.add_middleware(
@@ -68,11 +69,15 @@ class regis(BaseModel):
 def pwd_hashing(post:regis,db:Session=Depends(get_db)):
     pwd=utils.hash(post.password)
     post.password=pwd
-    data=model.register(**post.dict())
-    db.add(data)
-    db.commit()
-    db.refresh(data)
-    return pwd
+    data=db.query(register).filter(post.user_name==register.user_name).first()
+    if data:
+        return {"msg":"alreday existed"}
+    else:
+        data=register(**post.dict())
+        db.add(data)
+        db.commit()
+        db.refresh(data)
+        return data
 
 # For login
 
@@ -81,18 +86,17 @@ def log(post:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
     print(post.username)
     data=db.query(model.register).filter(model.register.user_name==post.username)
     data1=data.first()
-    print(data1)
+   
     
     if not data1:
-        return {"detail":"invalid"}
-        # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="not found")    
+        return {"detail":"Not Found"}   
     print(data1.password , post.password)
     data2=utils.Verify( post.password , data1.password)
+    # data2=post.password
 
     if not data2:
-        return {"detail":"invalid"}
-        # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Invalid credential")
-
+        return {"detail2":"Not Found"}
+        
     access_token=jwt.create_token({"user_name":post.username}) 
     return{"access_token": access_token, "token_type":"bearer"}
 
@@ -157,7 +161,7 @@ def delete_post(db:Session=Depends(get_db),user=Depends(jwt.get_current_user)):
 
 class token(BaseModel):
     access_token:str
-    token:str 
+    token_type:str 
 
 class access_token(BaseModel):
     title:str
