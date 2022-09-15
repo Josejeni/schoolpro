@@ -4,9 +4,9 @@ from jose import jwt
 from app.config import settings
 from app import file1
 
-def test_root(client):
-   res= client.get("/")
-   print(res.json())
+# def test_root(client):
+#    res= client.get("/")
+#    print(res.json())
 
 
 
