@@ -73,6 +73,7 @@ jobs:
 
   deploy: 
     runs-on: ubuntu-latest
+    need: [build]
 
     steps:
       - name: deploying stuffs
