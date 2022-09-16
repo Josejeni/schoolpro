@@ -66,8 +66,8 @@ class regis(BaseModel):
 # for register
 @app.get("/")
 def root():
-    return{"msg":SUCCESS}
-    
+    return{"msg":"helllooooooo"}
+
 @app.post("/pwd_encrypt")
 def pwd_hashing(post:regis,db:Session=Depends(get_db)):
     pwd=utils.hash(post.password)
