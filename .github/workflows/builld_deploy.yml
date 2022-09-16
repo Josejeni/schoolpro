@@ -16,9 +16,22 @@ jobs:
       EXPIRE_TIME: ${{secrets.EXPIRE_TIME}}
       TOKEN_TYPE: ${{secrets.TOKEN_TYPE}}
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+          POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
+        ports:
+          -5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-intevel 10s
+          --health-timeout 5s
+          --health-retries 5
+
     runs-on: ubuntu-latest
     steps:
-        
       - name: pulling git repo
         uses: actions/checkout@v3
       - name: Install python 
