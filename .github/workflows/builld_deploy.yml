@@ -76,5 +76,5 @@ jobs:
 
     steps:
       - name: deploying stuffs
-        run: echo"helloo"
+        run: echo "helloo"
 
