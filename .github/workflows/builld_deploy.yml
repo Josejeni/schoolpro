@@ -3,23 +3,23 @@ on: [push,pull_request]
 
 jobs:
   job1:
+    environment:
+      name: testing
     env:
-    
-      DATABASE_HOSTNAME: localhost
-      DATABASE_PASSWORD: postgres
-      DATABASE_PORT: 5432
-      DATABASE_NAME: fastapi
-      DATABASE_USERNAME: postgres
-      SECRET_KEY: 09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
-      ALGORITHM: HS256
-      EXPIRE_TIME: 30
-      TOKEN_TYPE: Bearer
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      EXPIRE_TIME: ${{secrets.EXPIRE_TIME}}
+      TOKEN_TYPE: ${{secrets.TOKEN_TYPE}}
 
     runs-on: ubuntu-latest
     steps:
         
       - name: pulling git repo
-        run: service postgresql start
         uses: actions/checkout@v3
       - name: Install python 
         uses: actions/setup-python@v3
