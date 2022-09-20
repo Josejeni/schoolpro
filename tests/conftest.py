@@ -1,3 +1,4 @@
+from email import header
 from fastapi.testclient import TestClient
 from app.main import app
 from app.config import settings
@@ -7,7 +8,7 @@ from app.main import get_db
 from app.database import Base
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
-from app import utils
+from app import utils,jwt
 
 
 
@@ -45,7 +46,23 @@ def test_register(client):
     new_user['password'] = user_data['password']
     return new_user
     # return res.json()
-    
+
+@pytest.fixture
+def token(test_register):
+    a = jwt.create_token({'user_name':test_register["user_name"]})
+    print(a)
+    return a
+
+@pytest.fixture
+def autherized_client(client,token):
+    print("Haiii")
+    client.headers = {
+        **client.headers,
+        "Authorization":f'Bearer {token}'
+    }
+    return client
+
+
 
 
 

@@ -1,7 +1,4 @@
-
-
 from sqlalchemy import Column,Integer,String,Boolean,ForeignKey,Time,Date
-# from sqlalchemy.sql.expression import null
 from .database import Base
 
 class Product(Base):
@@ -26,8 +23,6 @@ class register(Base):
     name=Column(String,nullable=False,)
     age=Column(Integer,nullable=False,)
     gender=Column(String,nullable=False,)
-    # father_name=Column(String,nullable=False,)
-    # mother_name=Column(String,nullable=False,)
     mailid=Column(String,nullable=False,unique=True)
     dob=Column(Date)
     password=Column(String,nullable=False,)

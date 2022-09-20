@@ -22,7 +22,6 @@ def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_
 
 @router.put("/update")
 def updated(post:schemas.Put,db:Session=Depends(database.get_db),user=Depends(jwt.get_current_user)):
-    print("hii")
     updated_post=db.query(model.register).filter(model.register.user_name==user.user_name)
     up=updated_post.first()
     if up==None:
@@ -33,12 +32,11 @@ def updated(post:schemas.Put,db:Session=Depends(database.get_db),user=Depends(jw
 
   # For deleting the user
    
-@router.delete("/user_deleted")
+@router.delete("/user_deleted",status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(db:Session=Depends(database.get_db),user=Depends(jwt.get_current_user)):
-    print("hiiii")
     new_post=db.query(model.register).filter(model.register.user_name==user.user_name)
     if new_post.first()==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"the user_name:{user.user_name} does not exist")
     new_post.delete(synchronize_session=False)
     db.commit()   
-    return response(status_code=status.HTTP_204_NO_CONTENT)
+    

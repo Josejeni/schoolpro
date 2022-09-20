@@ -1,4 +1,5 @@
-from .database import client,session , test_register
+# from .conftest import client,session , test_register,autherized_client
+import re
 from app import utils
 from jose import jwt
 from app.config import settings
@@ -22,5 +23,14 @@ def test_login(client,test_register):
     assert username == test_register['user_name']
 
 
+def test_userproifleupdate(autherized_client):  
+   res=autherized_client.put("/update",json={"user_name":"Sherina","name":"Josephinjenifer","age":20,"gender":"female","dob":"2000-3-3","mailid":"jose@gmail.com"})
+   new_user = res.json()
+   return res.json()
+
+def test_userprofiledelete(autherized_client):
+   res = autherized_client.delete("/user_deleted")
+   assert res.status_code == 204
+   print( {"msg":"deleted"})
   
 
