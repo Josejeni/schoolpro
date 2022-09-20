@@ -1,4 +1,22 @@
+from datetime import date
 from pydantic import BaseModel
+
+class login(BaseModel):
+    user_name:str
+    password:str
+
+
+class regis(BaseModel): 
+    name:str
+    age:int
+    gender:str
+    # father_name:str
+    # mother_name:str
+    dob:date
+    mailid:str
+    user_name:str
+    password:str
+
 
 class Post(BaseModel):
     
@@ -76,7 +94,7 @@ class Put(BaseModel):
     name:str
     age:int
     gender:str
-    father_name:str
-    mother_name:str
+    dob:date
+    mailid:str
     user_name:str
     # password:str

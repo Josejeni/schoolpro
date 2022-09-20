@@ -5,20 +5,14 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Optional
-
 from sqlalchemy.orm import Session
 from . import model
-from .database import Base, engine,Sessionlocal
+from .database import get_db
 from .config import settings
 
 oAuth = OAuth2PasswordBearer(tokenUrl='log_encrypt',scheme_name="JWT")
-# oAuth = OAuth2PasswordBearer(tokenUrl="log_encrypt")
-def get_db():
-    db=Sessionlocal()
-    try:
-        yield db
-    except:
-        db.close()
+
+
 
 class Token_data(BaseModel):
     username:Optional[str] = None
@@ -32,6 +26,8 @@ def create_token(data:dict):
     value=jwt.encode(encode,settings.secret_key,algorithm=settings.algorithm)
     return value
 
+
+
 def verify_token(token:str,credential_exception):
     try:
         print(token)
@@ -42,9 +38,11 @@ def verify_token(token:str,credential_exception):
         token_data=username
         
     except Exception as error:
-        # print(error)
         raise credential_exception
+        
     return token_data
+
+
 
 def get_current_user(token:str=Depends(oAuth),db:Session = Depends(get_db)):
     credential_exception=HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Invaild ...")
