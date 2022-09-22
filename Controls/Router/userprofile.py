@@ -1,5 +1,9 @@
 
-from app import database,schemas,main,model,jwt
+from Autentication import jwt
+from Controls import main
+from Models import model
+from Schemas import schemas
+from Database import database
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from fastapi import Body, FastAPI,Response,status,HTTPException

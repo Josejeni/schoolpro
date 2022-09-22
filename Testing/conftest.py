@@ -1,14 +1,15 @@
 from email import header
 from fastapi.testclient import TestClient
-from app.main import app
-from app.config import settings
+from Utils import utils
+from Controls.main import app
+from Configuration.config import settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.main import get_db
-from app.database import Base
+from Controls.main import get_db
+from Database.database import Base
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
-from app import utils,jwt
+from Autentication import jwt
 
 
 

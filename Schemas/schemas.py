@@ -98,3 +98,9 @@ class Put(BaseModel):
     mailid:str
     user_name:str
     # password:str
+
+
+class Passwordreset(BaseModel):
+    email: str
+class pin(BaseModel):
+    otp:int

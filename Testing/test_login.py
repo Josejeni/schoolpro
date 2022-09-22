@@ -1,9 +1,9 @@
 # from .conftest import client,session , test_register,autherized_client
 import re
-from app import utils
+from Utils import utils
 from jose import jwt
-from app.config import settings
-from app import main
+from Configuration.config import settings
+from Controls import main
 
 def test_root(client):
    res= client.get("/")

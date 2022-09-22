@@ -1,6 +1,9 @@
 # from http.client import HTTPException
-from app import main,model,utils,jwt
-from .database import get_db
+from Autentication import jwt
+from Models import model
+from Utils import utils
+from Controls import main
+from Database.database import get_db
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm

@@ -6,9 +6,9 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.orm import Session
-from . import model
-from .database import get_db
-from .config import settings
+from Models import model
+from Database.database import get_db
+from Configuration.config import settings
 
 oAuth = OAuth2PasswordBearer(tokenUrl='log_encrypt',scheme_name="JWT")
 

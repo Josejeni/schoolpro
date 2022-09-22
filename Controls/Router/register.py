@@ -1,8 +1,11 @@
 
-from app import main,schemas,utils,model
+from Models import model
+from Schemas import schemas
+from Utils import utils
+from Controls import main
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from .database import get_db
+from Database.database import get_db
 from fastapi import APIRouter
 
 
