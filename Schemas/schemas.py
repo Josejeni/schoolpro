@@ -104,3 +104,8 @@ class Passwordreset(BaseModel):
     email: str
 class pin(BaseModel):
     otp:int
+
+
+class token(BaseModel):
+    access_token:str
+    token_type:str 

@@ -1,9 +1,11 @@
 # from .conftest import client,session , test_register,autherized_client
+import imp
 import re
 from Utils import utils
 from jose import jwt
 from Configuration.config import settings
 from Controls import main
+from Schemas import schemas
 
 def test_root(client):
    res= client.get("/")
@@ -16,7 +18,7 @@ def test_login(client,test_register):
     print(test_register['password'])
     res=client.post("/log_encrypt",data={"username":test_register['user_name'],"password":test_register['password']})
     print(res.json())
-    res_token_detail = main.token(** res.json())
+    res_token_detail = schemas.token(** res.json())
     payload=jwt.decode(res_token_detail.access_token,settings.secret_key,settings.algorithm)
     username=payload.get('user_name')
     print(username)
