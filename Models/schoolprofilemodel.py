@@ -1,11 +1,11 @@
 from sqlalchemy import Integer,String,Column,ForeignKey,Time
 # from Database.database import Base
-from Database.database import Base
+from .registermodel import Base
 
 
 
 
-class general(Base):
+class General(Base):
     __tablename__='general_info'
     id = Column(Integer,primary_key=True,autoincrement=True)
     user_name=Column(String,ForeignKey("register.user_name",ondelete="CASCADE"))

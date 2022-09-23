@@ -16,7 +16,7 @@ router=APIRouter()
 @router.post('/log_encrypt')
 def log(post:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
     print(post.username)
-    data=db.query(registermodel.register).filter(registermodel.register.user_name==post.username)
+    data=db.query(registermodel.Register).filter(registermodel.Register.user_name==post.username)
     data1=data.first()
    
     

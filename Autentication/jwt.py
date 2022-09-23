@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy.orm import Session
-from Models import model
+from Models import registermodel
 from Database.database import get_db
 from Configuration.config import settings
 
@@ -47,6 +47,6 @@ def verify_token(token:str,credential_exception):
 def get_current_user(token:str=Depends(oAuth),db:Session = Depends(get_db)):
     credential_exception=HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Invaild ...")
     token=verify_token(token,credential_exception)
-    cur_user=db.query(model.register).filter(model.register.user_name == token).first()
+    cur_user=db.query(registermodel.Register).filter(registermodel.Register.user_name == token).first()
     print(cur_user)
     return cur_user

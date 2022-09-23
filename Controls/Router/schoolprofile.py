@@ -12,7 +12,7 @@ router=APIRouter()
 
 @router.get("/generalinfo/")
 def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_user)):
-    new_post=db.query(schoolprofilemodel.general).filter(schoolprofilemodel.general.user_name==user.user_name).first()
+    new_post=db.query(schoolprofilemodel.General).filter(schoolprofilemodel.General.user_name==user.user_name).first()
     if new_post==None:
         return"not valid"
     return new_post
@@ -24,7 +24,7 @@ def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_
 def gen(post:dict,db:Session=Depends(database.get_db),user=Depends(jwt.get_current_user)):
     print(post)
     print("works")
-    new_post=schoolprofilemodel.general(user_name=user.user_name,**post)
+    new_post=schoolprofilemodel.General(user_name=user.user_name,**post)
     db.add(new_post)
     db.commit()
     db.refresh(new_post)

@@ -16,11 +16,11 @@ router=APIRouter()
 def pwd_hashing(post:schemas.regis,db:Session=Depends(get_db)):
     pwd=utils.hash(post.password)
     post.password=pwd
-    data=db.query(registermodel.register).filter(post.user_name==registermodel.register.user_name).first()
+    data=db.query(registermodel.Register).filter(post.user_name==registermodel.Register.user_name).first()
     if data:
         return {"msg":"alreday existed"}
     else:
-        data=registermodel.register(**post.dict())
+        data=registermodel.Register(**post.dict())
         db.add(data)
         db.commit()
         db.refresh(data)

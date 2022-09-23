@@ -6,7 +6,7 @@ from Database.database import Base
 
 
 
-class register(Base):
+class Register(Base):
     __tablename__="register"
     # id=Column(Integer,auto_increment=True)
     name=Column(String,nullable=False,)

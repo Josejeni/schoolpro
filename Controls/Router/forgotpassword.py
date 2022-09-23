@@ -14,7 +14,7 @@ router=APIRouter()
 @router.post("/password_reset")
 def Password_reset(data:schemas.Passwordreset,db:Session=Depends(get_db)):
     print(data)
-    data = db.query(registermodel.register).filter(registermodel.register.mailid == data.email)
+    data = db.query(registermodel.Register).filter(registermodel.Register.mailid == data.email)
     data1=data.first()
     global num 
     if data1: 
@@ -31,7 +31,7 @@ def Password_reset(data:schemas.Passwordreset,db:Session=Depends(get_db)):
 def post(number:dict,db:Session=Depends(get_db)): 
     print(type(number['pin'])) 
     if(number['pin'] == num):
-        new=db.query(registermodel.register).filter(registermodel.register.mailid==number['email'])
+        new=db.query(registermodel.Register).filter(registermodel.Register.mailid==number['email'])
         newpwd=new.first()
         hashed=utils.hash(number['password'])
         newpwd.password=hashed
@@ -44,7 +44,7 @@ def post(number:dict,db:Session=Depends(get_db)):
 
 @router.put("/update_pwd")
 def updated(pwd:dict,db:Session=Depends(get_db)):
-    new=db.query(registermodel.register).filter(registermodel.register.mailid==pwd['mailid'])
+    new=db.query(registermodel.Register).filter(registermodel.Register.mailid==pwd['mailid'])
     newspwd=new.first()
     new_pwd=new.update(pwd,synchronize_session=False)
     db.commit()
