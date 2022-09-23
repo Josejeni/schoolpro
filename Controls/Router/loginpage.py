@@ -1,6 +1,6 @@
 # from http.client import HTTPException
 from Autentication import jwt
-from Models import model
+from Models import registermodel
 from Utils import utils
 from Controls import main
 from Database.database import get_db
@@ -16,7 +16,7 @@ router=APIRouter()
 @router.post('/log_encrypt')
 def log(post:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
     print(post.username)
-    data=db.query(model.register).filter(model.register.user_name==post.username)
+    data=db.query(registermodel.register).filter(registermodel.register.user_name==post.username)
     data1=data.first()
    
     

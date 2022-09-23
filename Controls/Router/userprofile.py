@@ -1,12 +1,12 @@
 
 from Autentication import jwt
 from Controls import main
-from Models import model
+from Models import registermodel
 from Schemas import schemas
 from Database import database
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from fastapi import Body, FastAPI,Response,status,HTTPException
+from fastapi import status,HTTPException
 from urllib import response
 from fastapi import APIRouter
 
@@ -17,7 +17,7 @@ router= APIRouter()
 
 @router.get("/user_profile/")
 def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_user)):
-    new_post=db.query(model.register).filter(model.register.user_name==user.user_name).first()
+    new_post=db.query(registermodel.register).filter(registermodel.register.user_name==user.user_name).first()
     if new_post==None:
         return"not valid"
     return new_post
@@ -26,7 +26,7 @@ def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_
 
 @router.put("/update")
 def updated(post:schemas.Put,db:Session=Depends(database.get_db),user=Depends(jwt.get_current_user)):
-    updated_post=db.query(model.register).filter(model.register.user_name==user.user_name)
+    updated_post=db.query(registermodel.register).filter(registermodel.register.user_name==user.user_name)
     up=updated_post.first()
     if up==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Page not found")
@@ -38,7 +38,7 @@ def updated(post:schemas.Put,db:Session=Depends(database.get_db),user=Depends(jw
    
 @router.delete("/user_deleted",status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(db:Session=Depends(database.get_db),user=Depends(jwt.get_current_user)):
-    new_post=db.query(model.register).filter(model.register.user_name==user.user_name)
+    new_post=db.query(registermodel.register).filter(registermodel.register.user_name==user.user_name)
     if new_post.first()==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"the user_name:{user.user_name} does not exist")
     new_post.delete(synchronize_session=False)

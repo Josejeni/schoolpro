@@ -2,7 +2,8 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from Models.model import Base
+from Models.schoolprofilemodel import Base 
+from Models.registermodel import Base
 from Configuration.config import settings
 from alembic import context
 
