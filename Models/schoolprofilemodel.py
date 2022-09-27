@@ -6,7 +6,7 @@ from .registermodel import Base
 
 
 class General(Base):
-    __tablename__='general_info'
+    __tablename__='schoolprofile'
     id = Column(Integer,primary_key=True,autoincrement=True)
     user_name=Column(String,ForeignKey("register.user_name",ondelete="CASCADE"))
     sname=Column(String)
