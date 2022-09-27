@@ -1,6 +1,6 @@
 from sqlalchemy import Integer,String,Column,ForeignKey,Time
 # from Database.database import Base
-from .registermodel import Base
+from Models.registermodel import Base
 
 
 
