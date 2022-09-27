@@ -1,6 +1,4 @@
 # from .conftest import client,session , test_register,autherized_client
-import imp
-import re
 from Utils import utils
 from jose import jwt
 from Configuration.config import settings
@@ -34,5 +32,12 @@ def test_userprofiledelete(autherized_client):
    res = autherized_client.delete("/user_deleted")
    assert res.status_code == 204
    print( {"msg":"deleted"})
+
+
+
+def test_getuserprofile(autherized_client):
+   res=autherized_client.get("/user_profile")
+   print(res.json())
+
   
 

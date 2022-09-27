@@ -15,7 +15,7 @@ router= APIRouter()
 
 # For getting the user profile
 
-@router.get("/user_profile/")
+@router.get("/user_profile")
 def test_post(db:Session=Depends(database.get_db), user=Depends(jwt.get_current_user)):
     new_post=db.query(registermodel.Register).filter(registermodel.Register.user_name==user.user_name).first()
     if new_post==None:
