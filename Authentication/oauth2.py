@@ -32,7 +32,7 @@ def verify_token(token:str,credential_exception):
     try:
         print(token)
         payload=jwt.decode(token,settings.secret_key,settings.algorithm)
-        username=payload.get('user_name')
+        username=payload.get('username')
         if username is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
         token_data=username
@@ -47,6 +47,6 @@ def verify_token(token:str,credential_exception):
 def get_current_user(token:str=Depends(oAuth),db:Session = Depends(get_db)):
     credential_exception=HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,detail="Invaild ...")
     token=verify_token(token,credential_exception)
-    cur_user=db.query(registermodel.Register).filter(registermodel.Register.user_name == token).first()
+    cur_user=db.query(registermodel.Register).filter(registermodel.Register.username == token).first()
     print(cur_user)
     return cur_user

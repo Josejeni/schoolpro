@@ -1,15 +1,15 @@
 from email import header
 from fastapi.testclient import TestClient
 from Utils import utils
-from Controls.main import app
+from Controller.main import app
 from Configuration.config import settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Controls.main import get_db
+from Controller.main import get_db
 from Database.database import Base
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
-from Autentication import jwt
+from Authendication import oauth2
 
 
 
@@ -41,7 +41,7 @@ def client(session):
 @pytest.fixture
 def test_register(client):
 
-    user_data={"user_name":"Sherina","password":"jose@123","name":"josephin","age":22,"gender":"female","dob":"2000-3-3","mailid":"jose@gmail.com"}
+    user_data={"username":"Sherina","password":"jose@123","name":"josephin","age":22,"gender":"female","dob":"2000-3-3","mailid":"jose@gmail.com"}
     res=client.post("/pwd_encrypt",json=user_data)
     new_user = res.json()
     new_user['password'] = user_data['password']
@@ -50,7 +50,7 @@ def test_register(client):
 
 @pytest.fixture
 def token(test_register):
-    a = jwt.create_token({'user_name':test_register["user_name"]})
+    a = oauth2.create_token({'username':test_register["username"]})
     print(a)
     return a
 

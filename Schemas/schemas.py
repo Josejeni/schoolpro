@@ -1,81 +1,70 @@
 from datetime import date
 from pydantic import BaseModel
 
+
+#For loginpage
 class login(BaseModel):
-    user_name:str
+    username:str
     password:str
 
 
+
+#For registerpage
 class regis(BaseModel): 
     name:str
     age:int
     gender:str
-    # father_name:str
-    # mother_name:str
     dob:date
     mailid:str
-    user_name:str
+    username:str
     password:str
 
 
-class Post(BaseModel):
-    
-    name:str
-    age:int
-    gender:str
-    father_name:str
-    mother_name:str
-    password:str
-    user_name:str
-
-class Get(BaseModel):
-    user_name:str
-    password:str
 
 class info(BaseModel):
-    sname:str   
+    schoolName:str   
     post:str
     district:str
     state:str
     city:str
-    pno:int
-    url:str
-    email:str
-    pcode:int
-    slocation:str
-    need:str
-    ayear:int
-    year:int
-    slevel:str
+    schoolPhoneNumber:int
+    schoolUrl:str
+    schoolEmail:str
+    pinCode:int
+    schoolLocation:str
+    specialChild:str
+    academicYear:int
+    estabilshedYear:int
+    schoolLevel:str
     medium:str
-    nature:str
-    tstaff:int
+    natureAffiliation:str
+    teachingStaff:int
     gender:str
     girls:int
     boys:int
     students:int
-    nstaff:int
-    cname:str
-    cpno:int
-    pname:str
-    pemail:str
-    ppno:int
-    opno:int
-    institute_govt:str
-    board_affiliated:str
+    nonTeachingStaff:int
+    correspondentName:str
+    correspondentPhoneNumber:int
+    principleName:str
+    principleEmail:str
+    principlePhoneNumber:int
+    officialPhoneNumber:int
+    governmentRecognized:str
+    affiliatedBoard:str
     affiiation_no:int
     affiiation_year:int
     affiiation_condition:str
-    affiliation_cons:int
-    status_certificate:str
+    stateAffiliationCondition:int
+    statusCertificate:str
     hindhu:int
     cristian:int
     islam:int
     others:int
-    non_believers:int
-    fire_certificate:str
-    sanitation_certificate:str
-    building_certificate:str
+    nonBelievers:int
+    fireCertificate:str
+    sanitationCertificate:str
+    buildingCertificate:str
     school_owned:str
     name_trust:str
     registered:str
@@ -89,15 +78,16 @@ class info(BaseModel):
     pno_chairman:int
     eamil_chairman:str
 
+
+#For User profile
 class Put(BaseModel):
-    
     name:str
     age:int
     gender:str
     dob:date
     mailid:str
-    user_name:str
-    # password:str
+    username:str
+   
 
 
 class Passwordreset(BaseModel):

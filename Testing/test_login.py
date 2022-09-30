@@ -1,8 +1,8 @@
 # from .conftest import client,session , test_register,autherized_client
 from Utils import utils
-from jose import jwt
+from jose import oauth2
 from Configuration.config import settings
-from Controls import main
+from Controller import main
 from Schemas import schemas
 
 def test_root(client):
@@ -12,19 +12,19 @@ def test_root(client):
 
 
 def test_login(client,test_register):
-    print(test_register['user_name'])
+    print(test_register['username'])
     print(test_register['password'])
-    res=client.post("/log_encrypt",data={"username":test_register['user_name'],"password":test_register['password']})
+    res=client.post("/log_encrypt",data={"username":test_register['username'],"password":test_register['password']})
     print(res.json())
     res_token_detail = schemas.token(** res.json())
-    payload=jwt.decode(res_token_detail.access_token,settings.secret_key,settings.algorithm)
-    username=payload.get('user_name')
+    payload=oauth2.decode(res_token_detail.access_token,settings.secret_key,settings.algorithm)
+    username=payload.get('username')
     print(username)
-    assert username == test_register['user_name']
+    assert username == test_register['username']
 
 
 def test_userproifleupdate(autherized_client):  
-   res=autherized_client.put("/update",json={"user_name":"Sherina","name":"Josephinjenifer","age":20,"gender":"female","dob":"2000-3-3","mailid":"jose@gmail.com"})
+   res=autherized_client.put("/update",json={"username":"Sherina","name":"Josephinjenifer","age":20,"gender":"female","dob":"2000-3-3","mailid":"jose@gmail.com"})
    new_user = res.json()
    return res.json()
 

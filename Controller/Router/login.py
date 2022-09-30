@@ -1,8 +1,8 @@
 # from http.client import HTTPException
-from Autentication import jwt
+from Authentication import oauth2
 from Models import registermodel
 from Utils import utils
-from Controls import main
+from Controller import main
 from Database.database import get_db
 from sqlalchemy.orm import Session
 from fastapi import Depends
@@ -16,7 +16,7 @@ router=APIRouter()
 @router.post('/log_encrypt')
 def log(post:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
     print(post.username)
-    data=db.query(registermodel.Register).filter(registermodel.Register.user_name==post.username)
+    data=db.query(registermodel.Register).filter(registermodel.Register.username==post.username)
     data1=data.first()
    
     
@@ -31,5 +31,5 @@ def log(post:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
     
         return HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Page not found") 
         
-    access_token=jwt.create_token({"user_name":post.username}) 
+    access_token=oauth2.create_token({"username":post.username}) 
     return{"access_token": access_token, "token_type":"bearer"}

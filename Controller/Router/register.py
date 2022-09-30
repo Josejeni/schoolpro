@@ -2,7 +2,7 @@
 from Models import registermodel
 from Schemas import schemas
 from Utils import utils
-from Controls import main
+from Controller import main
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from Database.database import get_db
@@ -16,7 +16,7 @@ router=APIRouter()
 def pwd_hashing(post:schemas.regis,db:Session=Depends(get_db)):
     pwd=utils.hash(post.password)
     post.password=pwd
-    data=db.query(registermodel.Register).filter(post.user_name==registermodel.Register.user_name).first()
+    data=db.query(registermodel.Register).filter(post.username==registermodel.Register.username).first()
     if data:
         return HTTPException(status_code=status.HTTP_403_FORBIDDEN,detail="User name is alredy existed")
     else:
