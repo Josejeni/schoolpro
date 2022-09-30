@@ -9,7 +9,7 @@ from Controller.main import get_db
 from Database.database import Base
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
-from Authendication import oauth2
+from Authentication import oauth2
 
 
 
@@ -22,7 +22,7 @@ client=TestClient(app)
 
 @pytest.fixture
 def session():
-    Base.metadata.drop_all(bind=engine)
+    # Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
     db=TestingSessionlocal()
     return db
